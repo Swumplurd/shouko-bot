@@ -1,8 +1,12 @@
 require('dotenv').config();
 const fs = require('node:fs');
+const dbConnection = require('./database/config');
 const { Client, Collection, Intents } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+/* Database conexion */
+dbConnection();
 
 /* Event Handling */
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
