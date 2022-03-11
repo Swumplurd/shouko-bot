@@ -26,8 +26,6 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	// Set a new item in the Collection
-	// With the key as the command name and the value as the exported module
 	client.commands.set(command.data.name, command);
 }
 
@@ -38,6 +36,21 @@ client.on('interactionCreate', async interaction => {
 
 	try {
 		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'Hubo un error mientras se ejecutaba este comando!', ephemeral: true });
+	}
+});
+
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isSelectMenu()) return;
+	const [value] = interaction.values
+	if (!value) return;
+
+	try {
+		if (value === 'waifu') {
+			await interaction.update({ content: 'Something was selected!', components: [] });
+		}
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'Hubo un error mientras se ejecutaba este comando!', ephemeral: true });

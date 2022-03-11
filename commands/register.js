@@ -25,6 +25,7 @@ module.exports = {
             return interaction.reply('Usuario registrado.');
         } catch (error) {
             console.log(error);
+            return interaction.reply('No fue posible registrar al usuario.');
         }
 	},
 };
