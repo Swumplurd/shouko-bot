@@ -18,7 +18,7 @@ module.exports = {
             if (data) {
                 interaction.reply({embeds: [subredditEmbed(data)]})
             } else {
-                interaction.reply(`no tenemos datos de r/${subreddit}`);
+                interaction.reply({content: `no tenemos datos de r/${subreddit}`, ephemeral: true});
             }
         });
 	},

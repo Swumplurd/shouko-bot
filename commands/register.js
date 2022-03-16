@@ -12,7 +12,7 @@ module.exports = {
             let usuario = await User.findOne({user_id});
     
             if (usuario) {
-                return interaction.reply('ya estas registrado');
+                return interaction.reply({content: 'ya estas registrado', ephemeral: true});
             }
     
             usuario = new User({
@@ -22,7 +22,7 @@ module.exports = {
     
             await usuario.save();
     
-            return interaction.reply('usuario registrado!');
+            return interaction.reply({content: 'usuario registrado!', ephemeral: true});
         } catch (error) {
             console.log(error);
             return interaction.reply('No fue posible registrar al usuario!');
