@@ -1,126 +1,163 @@
 const sfw = [
     {
-        label: 'Waifu',
+        label: 'waifu',
         value: 'waifu',
     },
     {
-        label: 'Neko',
+        label: 'neko',
         value: 'neko',
     },
     {
-        label: 'Shinobu',
+        label: 'shinobu',
         value: 'shinobu',
     },
     {
-        label: 'Megumin',
+        label: 'megumin',
         value: 'megumin',
     },
     {
-        label: 'Bully',
+        label: 'bully',
         value: 'bully',
     },
     {
-        label: 'Cuddle',
+        label: 'cuddle',
         value: 'cuddle',
     },
     {
-        label: 'Cry',
+        label: 'cry',
         value: 'cry',
     },
     {
-        label: 'Hug',
+        label: 'hug',
         value: 'hug',
     },
     {
-        label: 'Awoo',
+        label: 'awoo',
         value: 'awoo',
     },
     {
-        label: 'Kiss',
-        value: 'kiss0',
+        label: 'kiss',
+        value: 'kiss',
     },
     {
-        label: 'Lick',
-        value: 'lick1',
+        label: 'lick',
+        value: 'lick',
     },
     {
-        label: 'Pat',
+        label: 'pat',
         value: 'pat',
     },
     {
-        label: 'Smug',
+        label: 'smug',
         value: 'smug',
     },
     {
-        label: 'Blush',
+        label: 'blush',
         value: 'blush',
     },
     {
-        label: 'Smile',
+        label: 'smile',
         value: 'smile',
     },
     {
-        label: 'Wave',
+        label: 'wave',
         value: 'wave',
     },
     {
-        label: 'Nom',
+        label: 'nom',
         value: 'nom',
     },
     {
-        label: 'Bite',
+        label: 'bite',
         value: 'bite',
     },
     {
-        label: 'Glomp',
+        label: 'glomp',
         value: 'glomp',
     },
     {
-        label: 'Slap',
+        label: 'slap',
         value: 'slap',
     },
     {
-        label: 'Happy',
+        label: 'happy',
         value: 'happy',
     },
     {
-        label: 'Wink',
+        label: 'wink',
         value: 'wink',
     },
     {
-        label: 'Poke',
+        label: 'poke',
         value: 'poke',
     },
     {
-        label: 'Dance',
+        label: 'dance',
         value: 'dance',
     },
     {
-        label: 'Cringe',
+        label: 'cringe',
         value: 'cringe',
     },
 ];
 
 const nsfw = [
     {
-        label: 'Waifu',
+        label: 'waifu',
         value: 'waifu',
     },
     {
-        label: 'Neko',
+        label: 'neko',
         value: 'neko',
     },
     {
-        label: 'Trap',
+        label: 'trap',
         value: 'trap',
     },
     {
-        label: 'Blowjob',
+        label: 'blowjob',
         value: 'blowjob',
     },
-]
+];
+
+const sfwChoices = [
+    ['waifu', 'waifu'],
+    ['neko', 'neko'],
+    ['shinobu', 'shinobu'],
+    ['megumin', 'megumin'],
+    ['bully', 'bully'],
+    ['cuddle', 'cuddle'],
+    ['cry', 'cry'],
+    ['hug', 'hug'],
+    ['awoo', 'awoo'],
+    ['kiss', 'kiss'],
+    ['lick', 'lick'],
+    ['pat', 'pat'],
+    ['smug', 'smug'],
+    ['blush', 'blush'],
+    ['smile', 'smile'],
+    ['wave', 'wave'],
+    ['nom', 'nom'],
+    ['bite', 'bite'],
+    ['glomp', 'glomp'],
+    ['slap', 'slap'],
+    ['happy', 'happy'],
+    ['wink', 'wink'],
+    ['poke', 'poke'],
+    ['dance', 'dance'],
+    ['cringe', 'cringe']
+];
+
+const nsfwChoices = [
+    ['waifu', 'waifu'],
+    ['neko', 'neko'],
+    ['trap', 'trap'],
+    ['blowjob', 'blowjob']
+];
 
 module.exports = {
     sfw,
-    nsfw
+    nsfw,
+    sfwChoices,
+    nsfwChoices
 }

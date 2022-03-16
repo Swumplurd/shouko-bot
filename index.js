@@ -2,7 +2,6 @@ require('dotenv').config();
 const fs = require('node:fs');
 const dbConnection = require('./database/config');
 const { Client, Collection, Intents } = require('discord.js');
-const generateWaifu = require('./helpers/generate-waifu');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -41,14 +40,6 @@ client.on('interactionCreate', async interaction => {
 		console.error(error);
 		await interaction.reply({ content: 'Hubo un error mientras se ejecutaba este comando!', ephemeral: true });
 	}
-});
-
-client.on('interactionCreate', async interaction => {
-	if (!interaction.isSelectMenu()) return;
-	const [value] = interaction.values
-	if (!value) return;
-
-	generateWaifu(interaction, value)
 });
 
 client.login(process.env.DISCORD_TOKEN);

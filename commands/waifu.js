@@ -1,50 +1,39 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageSelectMenu } = require("discord.js");
-const {sfw, nsfw} = require('../helpers/waifu-categories');
+const { default: axios } = require('axios');
+const waifuEmbed = require('../embeds/waifuEmbed');
+const { sfwChoices, nsfwChoices } = require('../helpers/waifu-categories');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('waifu')
 		.setDescription('Responde con una waifu!')
-        .addStringOption(option =>
-            option
-                .setName('category')
-                .setDescription('Elige una categoria!')
-                .setRequired(true)
-                .addChoices([
-                    [
-                        'sfw', 'sfw'
-                    ],
-                    [
-                        'nsfw', 'nsfw'
-                    ]
-                ])
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('sfw')
+                .setDescription('safe for work waifu')
+                .addStringOption(option => 
+                    option.setName('type')
+                    .setDescription('tipo de waifu')
+                    .setRequired(true)
+                    .addChoices(sfwChoices)
+                )
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('nsfw')
+                .setDescription('not safe for work waifu')
+                .addStringOption(option => 
+                    option.setName('type')
+                    .setDescription('tipo de waifu')
+                    .setRequired(true)
+                    .addChoices(nsfwChoices)
+                )
         ),
 	async execute(interaction) {
-        const category = interaction.options.getString('category');
-        
-        const row = new MessageActionRow();
-        if (category === 'sfw') {
-                row.addComponents(
-                    new MessageSelectMenu()
-                        .setCustomId('sfw')
-                        .setPlaceholder('Selecciona el tipo de waifu.')
-                        .addOptions(sfw),
-                );
-        }
-        if (category === 'nsfw') {
-                row.addComponents(
-                    new MessageSelectMenu()
-                        .setCustomId('nsfw')
-                        .setPlaceholder('Selecciona el tipo de waifu.')
-                        .addOptions(nsfw),
-                );
-        }
+        const category = interaction.options.getSubcommand();
+        const type = interaction.options.getString('type')
+        const response = await axios.get(`https://api.waifu.pics/${category}/${type}`);
 
-        try {
-            interaction.reply({components: [row]});
-        } catch (error) {
-            console.log(error);
-        }
+        interaction.reply({embeds: [waifuEmbed(response)]})
 	},
 };
