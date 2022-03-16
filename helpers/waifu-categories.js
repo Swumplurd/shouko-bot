@@ -160,4 +160,4 @@ module.exports = {
     nsfw,
     sfwChoices,
     nsfwChoices
-}
+};
