@@ -47,7 +47,7 @@ client.on('interactionCreate', interaction => {
 	if (!interaction.isButton()) return;
 
 	if (interaction.customId === 'saveWaifu') {
-		saveWaifu(interaction)
+		saveWaifu(interaction);
 	}
 });
 
