@@ -7,11 +7,19 @@ const saveWaifu = async(interaction) => {
 
         let usuario = await User.findOne({user_id})
         if (!usuario) {
-            return interaction.reply({content: 'primero ejecuta el comando /register', ephemeral: true})
+            return interaction.reply({content: 'primero ejecuta el comando `/register`', ephemeral: true})
         }
 
-        const update = {
-            waifu: waifu.toString(),
+        let update;
+        if (usuario.waifu_history.includes(waifu)) {
+            update = {
+                waifu: waifu.toString(),
+            }
+        } else {
+            update = {
+                waifu: waifu.toString(),
+                waifu_history: [...usuario.waifu_history, waifu]
+            }
         }
 
         await User.findByIdAndUpdate(usuario.id, update, {new: true})
