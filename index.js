@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fs = require('node:fs');
+const saveWaifu = require('./helpers/save-waifu');
 const dbConnection = require('./database/config');
 const { Client, Collection, Intents } = require('discord.js');
 
@@ -39,6 +40,14 @@ client.on('interactionCreate', async interaction => {
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'Hubo un error mientras se ejecutaba este comando!', ephemeral: true });
+	}
+});
+
+client.on('interactionCreate', interaction => {
+	if (!interaction.isButton()) return;
+
+	if (interaction.customId === 'saveWaifu') {
+		saveWaifu(interaction)
 	}
 });
 

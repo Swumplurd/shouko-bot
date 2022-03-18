@@ -16,7 +16,7 @@ module.exports = {
     
         reddit.FetchSubredditPost({ subreddit: `${subreddit}` }).then((data) => {
             if (data) {
-                interaction.reply({embeds: [subredditEmbed(data)]})
+                interaction.reply({embeds: [subredditEmbed(data)]});
             } else {
                 interaction.reply({content: `no tenemos datos de r/${subreddit}`, ephemeral: true});
             }

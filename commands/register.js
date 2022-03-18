@@ -17,7 +17,8 @@ module.exports = {
     
             usuario = new User({
                 user_id: interaction.user.id,
-                user: interaction.user.tag
+                user: interaction.user.tag,
+                waifu: ''
             });
     
             await usuario.save();

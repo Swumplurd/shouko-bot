@@ -19,7 +19,7 @@ module.exports = {
 
         if (interaction.member.roles.cache.some(role => role.name === 'mod')) {
             if (amount < 1 || amount > 100) {
-                return interaction.reply({ content: 'ingresa un numero entre 1 y 100', ephemeral: true });
+                return interaction.reply({ content: 'ingresa un numero de entre 1 y 100 mensajes', ephemeral: true });
             }
 
             if (user) {
@@ -28,10 +28,10 @@ module.exports = {
                 }).then((messages) => {
                     const userMessages = [];
                     messages.filter(m => m.author.id === user.id).forEach(msg => {
-                        userMessages.push(msg)
+                        userMessages.push(msg);
                         if (userMessages.length === amount) {
                             interaction.channel.bulkDelete(userMessages).then(() => {
-                                return interaction.reply({ content: `se borraron los mensajes de ${user.username}`, ephemeral: true })
+                                return interaction.reply({ content: `se borro ${amount} ${amount === 1 ? 'mensaje' : 'mensajes'} de ${user.username.toLowerCase()}`, ephemeral: true });
                             });
                         }
                     })
@@ -42,10 +42,10 @@ module.exports = {
                     interaction.reply({ content: 'hubo un error al eliminar mensajes en el servidor!', ephemeral: true });
                 });
                 
-                interaction.reply({content: 'mensajes eliminados', ephemeral: true})
+                interaction.reply({content: 'mensajes eliminados', ephemeral: true});
             }
         } else {
-            interaction.reply({content: 'no tienes permisos para ejecutar este comando', ephemeral: true})
+            interaction.reply({content: 'no tienes permisos para ejecutar este comando', ephemeral: true});
         }
     },
 };

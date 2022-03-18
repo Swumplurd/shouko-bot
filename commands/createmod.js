@@ -7,7 +7,7 @@ module.exports = {
         .setDescription('crea el rol mod'),
     async execute(interaction) {
         if (interaction.guild.roles.cache.some(role => role.name === 'mod')) {
-			return interaction.reply('A role with the name "mod" already exists on this server.');
+			return interaction.reply('el rol "mod" ya ha sido creado');
 		}
 
 		interaction.guild.roles.create({ name: 'mod', permissions: [Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.KICK_MEMBERS] })

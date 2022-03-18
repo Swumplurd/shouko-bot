@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose');
 
 const UserSchema = Schema({
     user_id: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
@@ -10,7 +10,7 @@ const UserSchema = Schema({
         type: String,
         required: true,
     },
-    current_waifu: {
+    waifu: {
         type: String,
     },
     waifu_history: {

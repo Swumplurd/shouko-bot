@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { sfwChoices, nsfwChoices } = require('../helpers/waifu-categories');
 const waifuEmbed = require('../embeds/waifuEmbed');
 const { default: axios } = require('axios');
+const { MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -34,6 +35,14 @@ module.exports = {
         const type = interaction.options.getString('type');
         const response = await axios.get(`https://api.waifu.pics/${category}/${type}`);
 
-        interaction.reply({embeds: [waifuEmbed(response)]});
+        const row = new MessageActionRow()
+			.addComponents(
+				new MessageButton()
+					.setCustomId('saveWaifu')
+					.setLabel('Save Waifu')
+					.setStyle('PRIMARY'),
+			);
+
+        await interaction.reply({embeds: [waifuEmbed(response)], components: [row]});
 	},
 };
