@@ -6,10 +6,10 @@ const { Client, Collection, Intents } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 
-/* Database conexion */
+/* Database connection */
 dbConnection();
 
-/* Event Handling */
+/* Event handling */
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
@@ -21,7 +21,16 @@ for (const file of eventFiles) {
 	}
 }
 
-/* Command Handling */
+/* Button handling */
+client.on('interactionCreate', interaction => {
+	if (!interaction.isButton()) return;
+
+	if (interaction.customId === 'saveWaifu') {
+		saveWaifu(interaction);
+	}
+});
+
+/* Command handling */
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -40,14 +49,6 @@ client.on('interactionCreate', async interaction => {
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'Hubo un error mientras se ejecutaba este comando!', ephemeral: true });
-	}
-});
-
-client.on('interactionCreate', interaction => {
-	if (!interaction.isButton()) return;
-
-	if (interaction.customId === 'saveWaifu') {
-		saveWaifu(interaction);
 	}
 });
 
