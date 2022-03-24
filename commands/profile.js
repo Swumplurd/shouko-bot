@@ -1,9 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Canvas = require('canvas');
 const { MessageAttachment } = require('discord.js');
+const User = require('../models/User');
+const Canvas = require('canvas');
 
 const applyText = (canvas, text) => {
-	const context = canvas.getContext('2d');
+	let context = canvas.getContext('2d');
 	let fontSize = 70;
 
 	do {
@@ -16,35 +17,47 @@ const applyText = (canvas, text) => {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('profile')
-        .setDescription('no se que pex'),
+        .setDescription('obtiene banner del perfil del usuario')
+		.addUserOption(option =>
+            option.setName('user')
+            .setDescription('ingresa un usuario')
+        ),
     async execute(interaction) {
-        const canvas = Canvas.createCanvas(700, 250);
-		const context = canvas.getContext('2d');
+		let user_id;
 
-		const background = await Canvas.loadImage('./wallpaper.jpg');
-		context.drawImage(background, 0, 0, canvas.width, canvas.height);
+		if (interaction.options.getUser('user')) {
+			user_id = interaction.options.getUser('user').id;
+		} else {
+			user_id = interaction.user.id;
+		}
 
-		context.strokeStyle = '#0099ff';
-		context.strokeRect(0, 0, canvas.width, canvas.height);
+		let user = await User.findOne({user_id});
 
-		context.font = '28px sans-serif';
-		context.fillStyle = '#ffffff';
-		context.fillText('Profile', canvas.width / 2.5, canvas.height / 3.5);
+		if (!user || !user.waifu) {
+			return interaction.reply({ content: "usuario no registrado o sin waifus guardadas", ephemeral: true })
+		}
 
+        let canvas = Canvas.createCanvas(700, 250);
+		let context = canvas.getContext('2d');
+		
 		context.font = applyText(canvas, `${interaction.member.displayName}!`);
-		context.fillStyle = '#ffffff';
-		context.fillText(`${interaction.member.displayName}!`, canvas.width / 2.5, canvas.height / 1.8);
-
+		context.fillStyle = '#ff0000';
+		context.fillText(`❤️`, 310, canvas.height / 2);
+		
 		context.beginPath();
-		context.arc(125, 125, 100, 0, Math.PI * 2, true);
+		context.arc(100, 125, 100, 0, Math.PI * 2, true);
+		context.arc(600, 125, 100, 0, Math.PI * 2, true);
 		context.closePath();
 		context.clip();
+		
+		let waifu = await Canvas.loadImage(user.waifu);
+		context.drawImage(waifu, 500, 25, 200, 200);
 
-		const avatar = await Canvas.loadImage(interaction.user.displayAvatarURL({ format: 'jpg' }));
-		context.drawImage(avatar, 25, 25, 200, 200);
+		let avatar = await Canvas.loadImage(interaction.options.getUser('user') ? interaction.options.getUser('user').displayAvatarURL({ format: 'jpg' }) : interaction.user.displayAvatarURL({ format: 'jpg' }));
+		context.drawImage(avatar, 0, 25, 200, 200);
 
-		const attachment = new MessageAttachment(canvas.toBuffer(), 'profile-image.png');
+		let attachment = new MessageAttachment(canvas.toBuffer(), 'profile-image.png');
 
-		interaction.reply({ files: [attachment] });
+		return interaction.reply({ files: [attachment] });
     },
 };
