@@ -4,7 +4,7 @@ const User = require('../models/User');
 const Canvas = require('canvas');
 
 const applyText = (canvas, text) => {
-	let context = canvas.getContext('2d');
+	const context = canvas.getContext('2d');
 	let fontSize = 70;
 
 	do {
@@ -25,20 +25,15 @@ module.exports = {
     async execute(interaction) {
 		let user_id;
 
-		if (interaction.options.getUser('user')) {
-			user_id = interaction.options.getUser('user').id;
-		} else {
-			user_id = interaction.user.id;
-		}
+		if (interaction.options.getUser('user')) user_id = interaction.options.getUser('user').id;
+	    else user_id = interaction.user.id;
 
-		let user = await User.findOne({user_id});
+		const user = await User.findOne({user_id});
 
-		if (!user || !user.waifu) {
-			return interaction.reply({ content: "usuario no registrado o sin waifus guardadas", ephemeral: true })
-		}
-
-        let canvas = Canvas.createCanvas(700, 250);
-		let context = canvas.getContext('2d');
+		if (!user || !user.waifu) return interaction.reply({ content: "usuario no registrado o sin waifus guardadas", ephemeral: true });
+		
+        const canvas = Canvas.createCanvas(700, 250);
+		const context = canvas.getContext('2d');
 		
 		context.font = applyText(canvas, `${interaction.member.displayName}!`);
 		context.fillStyle = '#ff0000';
@@ -50,13 +45,13 @@ module.exports = {
 		context.closePath();
 		context.clip();
 		
-		let waifu = await Canvas.loadImage(user.waifu);
+		const waifu = await Canvas.loadImage(user.waifu);
 		context.drawImage(waifu, 500, 25, 200, 200);
 
-		let avatar = await Canvas.loadImage(interaction.options.getUser('user') ? interaction.options.getUser('user').displayAvatarURL({ format: 'jpg' }) : interaction.user.displayAvatarURL({ format: 'jpg' }));
+		const avatar = await Canvas.loadImage(interaction.options.getUser('user') ? interaction.options.getUser('user').displayAvatarURL({ format: 'jpg' }) : interaction.user.displayAvatarURL({ format: 'jpg' }));
 		context.drawImage(avatar, 0, 25, 200, 200);
 
-		let attachment = new MessageAttachment(canvas.toBuffer(), 'profile-image.png');
+		const attachment = new MessageAttachment(canvas.toBuffer(), 'profile-image.png');
 
 		return interaction.reply({ files: [attachment] });
     },

@@ -4,7 +4,6 @@ const saveWaifu = async(interaction) => {
     try {
         let waifu = interaction.message.embeds[0].image.url;
         let user_id = interaction.user.id;
-
         let usuario = await User.findOne({user_id});
 
         if (!usuario) {
@@ -26,7 +25,6 @@ const saveWaifu = async(interaction) => {
         await User.findByIdAndUpdate(usuario.id, update, {new: true});
 
         return interaction.reply({content: 'tu waifu ha sido guardada', ephemeral: true});
-
     } catch (error) {
         console.log(error);
         interaction.reply({content: 'no fue posible guardar tu waifu', ephemeral: true});

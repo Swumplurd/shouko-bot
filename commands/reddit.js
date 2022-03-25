@@ -15,11 +15,8 @@ module.exports = {
         const subreddit = interaction.options.getString('subreddit');
     
         reddit.FetchSubredditPost({ subreddit: `${subreddit}` }).then((data) => {
-            if (data) {
-                interaction.reply({embeds: [subredditEmbed(data)]});
-            } else {
-                interaction.reply({content: `no tenemos datos de r/${subreddit}`, ephemeral: true});
-            }
+            if (data) interaction.reply({embeds: [subredditEmbed(data)]});
+            else interaction.reply({content: `no tenemos datos de r/${subreddit}`, ephemeral: true});
         });
 	},
 };

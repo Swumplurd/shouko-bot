@@ -11,10 +11,8 @@ module.exports = {
         try {
             let usuario = await User.findOne({user_id});
     
-            if (usuario) {
-                return interaction.reply({content: 'ya estas registrado', ephemeral: true});
-            }
-    
+            if (usuario) return interaction.reply({content: 'ya estas registrado 😊', ephemeral: true});
+            
             usuario = new User({
                 user_id: interaction.user.id,
                 user: interaction.user.tag,
@@ -23,10 +21,10 @@ module.exports = {
     
             await usuario.save();
     
-            return interaction.reply({content: 'usuario registrado!', ephemeral: true});
+            return interaction.reply({content: 'usuario registrado! 👍', ephemeral: true});
         } catch (error) {
             console.log(error);
-            return interaction.reply('No fue posible registrar al usuario!');
+            return interaction.reply({content:'no fue posible registrar al usuario! 😥', ephemeral: true});
         }
 	},
 };
