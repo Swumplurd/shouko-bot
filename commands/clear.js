@@ -17,9 +17,9 @@ module.exports = {
         const user = interaction.options.getUser('user');
         const amount = interaction.options.getInteger('amount');
 
-        if (amount < 1 || amount > 100) return interaction.reply({ content: 'ingresa un numero de entre 1 y 100 mensajes', ephemeral: true });
+        if (amount < 1 || amount > 100) return interaction.reply({ content: 'ingresa un numero de entre 1 y 100 mensajes 😇', ephemeral: true });
     
-        if (!interaction.member.roles.cache.some(role => role.name === 'mod')) return interaction.reply({content: 'no tienes permisos para ejecutar este comando', ephemeral: true});
+        if (!interaction.member.roles.cache.some(role => role.name === 'mod')) return interaction.reply({content: 'no tienes permisos para ejecutar este comando 😡', ephemeral: true});
         else if (user) {
             interaction.channel.messages.fetch({
                 limit: 100
@@ -33,10 +33,10 @@ module.exports = {
         } else {
             await interaction.channel.bulkDelete(amount, true).catch(error => {
                 console.error(error);
-                return interaction.reply({ content: 'hubo un error al eliminar mensajes en el servidor!', ephemeral: true });
+                return interaction.reply({ content: 'hubo un error al eliminar mensajes en el servidor! 😫', ephemeral: true });
             });
             
-            return interaction.reply({content: 'mensajes eliminados', ephemeral: true});
+            return interaction.reply({content: 'mensajes eliminados 👍', ephemeral: true});
         }
     },
 };

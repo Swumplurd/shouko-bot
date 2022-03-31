@@ -7,7 +7,7 @@ const saveWaifu = async(interaction) => {
         let usuario = await User.findOne({user_id});
 
         if (!usuario) {
-            return interaction.reply({content: 'primero ejecuta el comando `/register`', ephemeral: true})
+            return interaction.reply({content: 'primero ejecuta el comando `/register` 🙃', ephemeral: true})
         }
 
         let update;
@@ -24,10 +24,10 @@ const saveWaifu = async(interaction) => {
 
         await User.findByIdAndUpdate(usuario.id, update, {new: true});
 
-        return interaction.reply({content: 'tu waifu ha sido guardada', ephemeral: true});
+        return interaction.reply({content: 'tu waifu ha sido guardada! 🙂', ephemeral: true});
     } catch (error) {
         console.log(error);
-        interaction.reply({content: 'no fue posible guardar tu waifu', ephemeral: true});
+        interaction.reply({content: 'no fue posible guardar tu waifu! 😖', ephemeral: true});
     }
 }
 

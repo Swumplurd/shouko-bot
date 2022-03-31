@@ -30,7 +30,7 @@ module.exports = {
 
 		const user = await User.findOne({user_id});
 
-		if (!user || !user.waifu) return interaction.reply({ content: "usuario no registrado o sin waifus guardadas", ephemeral: true });
+		if (!user || !user.waifu) return interaction.reply({ content: "usuario no registrado o sin waifus guardadas! 😓", ephemeral: true });
 		
         const canvas = Canvas.createCanvas(700, 250);
 		const context = canvas.getContext('2d');
