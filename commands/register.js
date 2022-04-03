@@ -16,6 +16,7 @@ module.exports = {
             usuario = new User({
                 user_id: interaction.user.id,
                 user: interaction.user.tag,
+                user_avatar: interaction.user.displayAvatarURL(),
                 waifu: ''
             });
     

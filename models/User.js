@@ -10,6 +10,10 @@ const UserSchema = Schema({
         type: String,
         required: true,
     },
+    user_avatar: {
+        type: String,
+        required: true,
+    },
     waifu: {
         type: String,
     },
